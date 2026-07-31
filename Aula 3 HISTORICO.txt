@@ -1,0 +1,17 @@
+public class Aula3Historico {
+
+	public static void main(String[] args) {
+		String[] histCEPS = new String[3];
+		
+		histCEPS [0] = "83323-000";
+		histCEPS [1] = "83308-490";
+		histCEPS [2] = "83000-000";
+		
+		System.out.println("Histórico de pesquisas: ");
+		System.out.println("Primeira busca: " + histCEPS[0]);
+		System.out.println("Segunda busca: " + histCEPS[1]);
+		System.out.println("Terceira busca: " + histCEPS[2]);
+		
+	}
+
+}

@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+
+
+
+public class Aula4Sistema {
+
+	public static void main(String[] args) {
+		JFrame j = new JFrame("E-mail");
+		j.setSize(350,320);
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		j.setLocationRelativeTo(null);
+		j.setLayout(new FlowLayout());
+		
+		JLabel rotuloemail = new JLabel("E-mail do cliente: ");
+		JTextField txt = new JTextField("google@gmail.com");
+		
+		JLabel rtlmens = new JLabel ("Mensagem: ");
+		JTextArea mensagem = new JTextArea("Olá Rafa, sua entrega esta a caminho!");
+		
+		JButton btnenviar = new JButton("Enviar E-mail");
+		
+		btnenviar.addActionListener(e -> {
+			try {
+				String email = txt.getText();
+				String mens = mensagem.getText();
+				String assunto = "Sua entrega está a caminho!";
+				
+				String assuntocod = URLEncoder.encode(assunto, StandardCharsets.UTF_8).replace("+", "%20");
+				String menscod = URLEncoder.encode(mens, StandardCharsets.UTF_8).replace("+", "%20" );
+				
+				String linkemail = "malito: " + email + "?subject=" + assuntocod + "&body=" + menscod;
+						
+				Desktop.getDesktop().browse(new URI(linkemail));
+			}catch(Exception ex) {
+				ex.printStackTrace();
+				
+			}
+		});
+		
+		j.add(rotuloemail);
+		j.add(txt);
+		j.add(rtlmens);
+		j.add(mensagem);
+		j.add(btnenviar);
+	
+		j.setVisible(true);
+	}
+
+}

@@ -1,0 +1,31 @@
+import javax.swing.*; 
+import java.awt.Font;
+
+public class Aula2ViaCEP {
+
+	public static void main(String[] args) {
+		
+		String cep = "83308-490";
+		String rua = "Benjamin Andersen";
+		String bairro = "Jardim dos Estados ";
+		String city = "Piraquara";
+		
+		String endcomp = "<html><center>" + rua + ", " + bairro + "<br>" + city + " - CEP: " + cep + "</center></html>";
+		
+		JFrame j = new JFrame("Endereço encontrado");
+		j.setSize(400,180);
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		j.setLocationRelativeTo(null);
+		
+		JLabel rotulo = new JLabel(endcomp, SwingConstants.CENTER);
+		rotulo.setFont(new Font("Comic Sans", Font.PLAIN,14));
+		j.add(rotulo);
+		
+		j.setVisible(true);
+		
+		
+		
+		
+	}
+
+}
