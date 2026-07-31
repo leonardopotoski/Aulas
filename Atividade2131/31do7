@@ -1,0 +1,102 @@
+import java.awt.Desktop; //FERRAMENTA QUE CONVERSA COM O S.O(SISTEMA OPERACIONAL)
+import java.awt.Font;
+import java.net.URLEncoder; // FERRAMENTA QUE TRANSFORMA LINGUAGEM COMUM EM LINGUAGEM DA INTERNET
+import java.net.URI; // TEXTO SIMPLES PARA TEXTO URL
+import java.nio.charset.StandardCharsets; //DEIXA O APLICATIVO NA LIGUAGEM UNIVERSAL
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+
+import java.util.Scanner;
+import java.net.URL;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Aula1Whatsapp {
+	public static void main (String [] args ) {
+
+				JFrame janela = new JFrame("Consulta de CEP simples");
+				janela.setSize(400,300);
+				janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				janela.setLayout(null);
+				
+				JLabel rotuloCep= new JLabel("Digite o CEP: ");
+				rotuloCep.setBounds(20,20,100,25);
+				janela.add(rotuloCep);
+				
+				JTextField campoCep = new JTextField();
+				campoCep.setBounds(120,20,150,25);
+				janela.add(campoCep);
+				
+				JButton botaoConsultar = new JButton("Consultar");
+				botaoConsultar.setBounds(120,60,150,30);
+				janela.add(botaoConsultar);
+				
+				JTextArea areaResultado = new JTextArea();
+				areaResultado.setBounds(20,140,340,130);
+				areaResultado.setEditable(false);
+				janela.add(areaResultado);
+				
+				botaoConsultar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String cep = campoCep.getText();
+
+		                       try {
+		                    	   String urlString = "https://viacep.com.br/ws/" + cep + "/json/"; //arquivos que saem ou voltam nas interações em java	
+		                    	   URL url = new URL  (urlString);
+		                    	   Scanner leitorApi = new Scanner(url.openStream());
+		                    	   
+		                    	   StringBuilder resultado = new StringBuilder();
+		                    	   while(leitorApi.hasNextLine()) {
+		                    		   resultado.append(leitorApi.nextLine ()).append("\n");
+		                    	   } leitorApi.close();
+		                    	   
+		                    	   areaResultado.setText(resultado.toString());
+		                       } catch (Exception ex) {
+		                    	   areaResultado.setText("Erro ao consultar");
+		                       }
+		                           
+
+				}
+				});
+				janela.setVisible(true);
+
+			
+
+		
+		
+		String nome = "Leo";
+		String telefone = "41997026695";
+		String cep = "o enderço da sua escola atual é"
+				+"\"cep\": \"83323-290\",\r\n"
+                 + "Avenida Ayrton Senna da Silva\",\r\n"
+				+ "  \"unidade\": \"\",\r\n"
+				+ "  \"bairro\": \"Centro\",\r\n"
+				+ "  \"localidade\": \"Pinhais\",\r\n";
+		
+		JButton botaoZap = new JButton("Whatsapp");
+		botaoZap.setBounds(120,100,150,30);
+		janela.add(botaoZap);
+		
+
+		botaoZap.addActionListener(e -> {
+		
+		try {
+			String textoFormatado = URLEncoder.encode(cep, StandardCharsets.UTF_8.name());
+		    String linkWhatsapp = "https://wa.me/55" + telefone + "?text=" + textoFormatado;
+		    
+		    System.out.println("Abrindo o Whatsapp para " + nome + "...");
+		    
+		    Desktop.getDesktop().browse(new URI (linkWhatsapp));
+		} catch(Exception a) {
+			System.out.println("Erro ao abrir o link" + a.getMessage());
+			
+		
+			
+		}
+		
+	});
+}
+}
